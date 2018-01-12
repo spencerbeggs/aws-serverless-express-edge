@@ -1,18 +1,18 @@
 {
-  "name": "aws-serverless-express",
-  "version": "3.0.2",
-  "description": "This library enables you to utilize AWS Lambda and Amazon API Gateway to respond to web and API requests using your existing Node.js application framework.",
+  "name": "aws-serverless-express-edge",
+  "version": "3.1.0",
+  "description": "This library enables you to run your app on the edge using Amazon CloudFront Lambda@Edge.",
   "keywords": [
     "aws",
     "serverless",
-    "api",
-    "gateway",
     "lambda",
-    "express"
+    "express",
+    "server-rendering",
+    "universal"
   ],
-  "homepage": "https://github.com/awslabs/aws-serverless-express",
+  "homepage": "https://github.com/jgautheron/aws-serverless-express-edge",
   "bugs": {
-    "url": "https://github.com/awslabs/aws-serverless-express/issues"
+    "url": "https://github.com/jgautheron/aws-serverless-express-edge/issues"
   },
   "license": "Apache-2.0",
   "files": [
@@ -22,7 +22,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/aws-serverless-express.git"
+    "url": "https://github.com/jgautheron/aws-serverless-express-edge.git"
   },
   "engines": {
     "node": ">=4"
@@ -34,6 +34,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "binary-case": "^1.0.0"
+    "binary-case": "^1.0.0",
+    "qs": "^6.5.1"
   }
 }
