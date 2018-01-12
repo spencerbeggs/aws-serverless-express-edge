@@ -1,6 +1,6 @@
 {
   "name": "aws-serverless-express-edge",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "This library enables you to run your app on the edge using Amazon CloudFront Lambda@Edge.",
   "keywords": [
     "aws",
