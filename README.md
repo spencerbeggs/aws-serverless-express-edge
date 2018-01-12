@@ -1,4 +1,4 @@
-Run serverless applications on the edge in Amazon CloudFront using Lambda@Edge.  
+Run serverless applications on the edge in Amazon CloudFront by leveraging Lambda@Edge. 
 This is especially useful for deporting the intensive task of server rendering SPAs to AWS Lambda, which will let you scale to 100 reqs/s painlessly all the while leveraging CloudFront's edge cache.
 
 [Limits on Lambda@Edge](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html#limits-lambda-at-edge).
@@ -19,7 +19,9 @@ const server = awsServerlessExpress.createServer(app)
 exports.handler = (event, context) => awsServerlessExpress.proxy(server, event, context)
 ```
 
-[Package and create your Lambda function](http://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html), in `us-east-1`, then link it to a CloudFront distribution as an `Origin Request`.
+[Package and create your Lambda function](http://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html), deploy the function in `us-east-1`, then link it to a CloudFront distribution as an `Origin Request`.
+
+:warning: It is strongly recommended to serve assets from another distribution.
 
 ## Quick Start/Example
 
