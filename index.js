@@ -73,7 +73,7 @@ function forwardResponseToEdge(server, response, context) {
             let isBase64Encoded = isContentTypeBinaryMimeType({ contentType, binaryMimeTypes: server._binaryTypes })
             switch (contentType) {
                 case 'text/html':
-                    body = zlib.gzipSync(content).toString('base64')
+                    body = zlib.gzipSync(bodyBuffer).toString('base64')
                     isBase64Encoded = true
                     headers['content-encoding'] = 'gzip'
                     break
