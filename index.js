@@ -15,6 +15,7 @@
 'use strict'
 const http = require('http')
 const url = require('url')
+const zlib = require('zlib')
 const binarycase = require('binary-case')
 const qs = require('qs')
 
@@ -62,18 +63,29 @@ function forwardResponseToEdge(server, response, context) {
             // chunked transfer not currently supported by API Gateway
             if (headers['transfer-encoding'] === 'chunked') delete headers['transfer-encoding']
 
+            // Blacklisted / read-only headers
+            if (headers.hasOwnProperty('connection')) delete headers['connection']
+            if (headers.hasOwnProperty('content-length')) delete headers['content-length']
+
+            const contentType = getContentType({ contentTypeHeader: headers['content-type'] })
+
+            let body
+            let isBase64Encoded = isContentTypeBinaryMimeType({ contentType, binaryMimeTypes: server._binaryTypes })
+            switch (contentType) {
+                case 'text/html':
+                    body = zlib.gzipSync(content).toString('base64')
+                    isBase64Encoded = true
+                    headers['content-encoding'] = 'gzip'
+                    break
+                default:
+                    body = bodyBuffer.toString(isBase64Encoded ? 'base64' : 'utf8')
+            }
+
             Object.keys(headers)
                 .forEach(h => {
                     headers[h] = [{ key: h, value: headers[h] }]
                 })
 
-            // Blacklisted / read-only headers
-            if (headers.hasOwnProperty('connection')) delete headers['connection']
-            if (headers.hasOwnProperty('content-length')) delete headers['content-length']
-
-            const contentType = getContentType({ contentTypeHeader: headers['content-type'][0].value })
-            const isBase64Encoded = isContentTypeBinaryMimeType({ contentType, binaryMimeTypes: server._binaryTypes })
-            const body = bodyBuffer.toString(isBase64Encoded ? 'base64' : 'utf8')
             const successResponse = { status, body, headers }
             if (isBase64Encoded) {
                 successResponse.bodyEncoding = 'base64'
