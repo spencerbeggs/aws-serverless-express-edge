@@ -138,6 +138,7 @@ function forwardRequestToNodeServer(server, event, context) {
       context,
       getSocketPath(server._socketPathSuffix)
     );
+    console.log(requestOptions);
     const req = http.request(requestOptions, (response, body) =>
       forwardResponseToEdge(server, response, context)
     );
