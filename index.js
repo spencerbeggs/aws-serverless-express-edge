@@ -47,7 +47,7 @@ function mapEdgeEventToHttpRequest(event, context, socketPath) {
     JSON.stringify(eventWithoutBody)
   );
   headers["x-edge-context"] = encodeURIComponent(JSON.stringify(context));
-
+  console.log(headers);
   return {
     method: request.method,
     path: getPathWithQueryStringParams(event),
