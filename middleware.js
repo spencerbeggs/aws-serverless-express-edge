@@ -14,7 +14,7 @@ module.exports.eventContext = options => (req, res, next) => {
     event: JSON.parse(decodeURIComponent(req.headers["x-edge-event"])),
     context: JSON.parse(decodeURIComponent(req.headers["x-edge-context"]))
   };
-
+  console.log(req.headers);
   if (deleteHeaders) {
     delete req.headers["x-edge-event"];
     delete req.headers["x-edge-context"];

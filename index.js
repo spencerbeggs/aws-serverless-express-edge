@@ -133,6 +133,7 @@ function forwardLibraryErrorResponseToEdge(server, error, context) {
 
 function forwardRequestToNodeServer(server, event, context) {
   try {
+    console.log(event);
     const requestOptions = mapEdgeEventToHttpRequest(
       event,
       context,
