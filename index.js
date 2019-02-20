@@ -39,6 +39,7 @@ function isContentTypeBinaryMimeType(params) {
 
 function mapEdgeEventToHttpRequest(event, context, socketPath) {
   const request = event.Records[0].cf.request;
+  console.log(request);
   const headers = request.headers || {}; // NOTE: Mutating event.headers; prefer deep clone of event.headers
   const eventWithoutBody = Object.assign({}, event);
   delete eventWithoutBody.body;
